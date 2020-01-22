@@ -10,9 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let decode = DecodeService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        decode.decodeJson()
+        
     }
 
 

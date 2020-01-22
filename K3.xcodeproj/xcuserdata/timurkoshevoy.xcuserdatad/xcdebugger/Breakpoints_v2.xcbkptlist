@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "B9DAE596-3F0B-4B43-935F-3BC0BFC53496"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "40779AC7-261F-4CC4-AC9A-77DC1C3ABC8A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "K3/Services/DecodeService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "decodeJson()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "40779AC7-261F-4CC4-AC9A-77DC1C3ABC8A - 8bd798cf131fc8d1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "K3.DecodeService.decodeJson() -&gt; ()"
+                  moduleName = "K3"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timurkoshevoy/Desktop/workspace/K3/K3/Services/DecodeService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "354">
+               </Location>
+               <Location
+                  uuid = "40779AC7-261F-4CC4-AC9A-77DC1C3ABC8A - e224fe84261b277d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in K3.DecodeService.decodeJson() -&gt; ()"
+                  moduleName = "K3"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timurkoshevoy/Desktop/workspace/K3/K3/Services/DecodeService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "99">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
