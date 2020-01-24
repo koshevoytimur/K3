@@ -11,9 +11,9 @@ import UIKit
 class TableViewCell: UITableViewCell {
 
     // MARK: Outlets
-        @IBOutlet weak var userNameLabel: UILabel!
+        @IBOutlet weak var blogNameLabel: UILabel!
         @IBOutlet weak var postImageView: UIImageView!
-        @IBOutlet weak var desctiptionLabel: UILabel!
+        @IBOutlet weak var summaryLabel: UILabel!
         @IBOutlet weak var tagsLabel: UILabel!
         @IBOutlet weak var notesLabel: UILabel!
         @IBOutlet weak var notesLabelConst: UILabel!
@@ -34,7 +34,6 @@ class TableViewCell: UITableViewCell {
             super.setSelected(false, animated: animated)
         }
         
-        // MARK: Public methods
         func dynamicHight(screenWidth: CGFloat, imageWidth: CGFloat, imageHight: CGFloat) -> CGFloat{
             var imageResized = imageHight
             
@@ -47,7 +46,7 @@ class TableViewCell: UITableViewCell {
                 imageResized = 100.0
             }
             
-            let a = self.userNameLabel.frame.height + imageResized + self.desctiptionLabel.frame.height
+            let a = self.blogNameLabel.frame.height + imageResized + self.summaryLabel.frame.height
             let b = self.tagsLabel.frame.height + self.notesLabel.frame.height + 30.0
             
             let height = a + b

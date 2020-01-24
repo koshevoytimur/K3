@@ -11,9 +11,9 @@ import Alamofire
 import SwiftyJSON
 
 class NetworkService {
-        
+    
     var postsArray = [Post]()
-
+    
     let url = URL(string: "https://api.tumblr.com/v2/tagged?tag=meme&api_key=CcEqqSrYdQ5qTHFWssSMof4tPZ89sfx6AXYNQ4eoXHMgPJE03U")
     
     func getPostsFromNetwork(with tag: String, completion: @escaping (_ response: [Post]?, _ error: String?) -> Void) {
@@ -37,12 +37,12 @@ class NetworkService {
                         tags = tags + " #" + tagItem.stringValue
                     }
                 }
+                var width: Int = 100
+                var height: Int = 100
+                var image: String = ""
                 
-                
-                if responseItem["type"].stringValue == "photo"{
-                    var image: String = ""
-                    var width: Int = 0
-                    var height: Int = 0
+                switch responseItem["type"].stringValue {
+                case "photo":
                     
                     if responseItem["photos"].arrayValue.count > 0 {
                         for itemPhotos in responseItem["photos"].arrayValue {
@@ -53,26 +53,16 @@ class NetworkService {
                             self.postsArray.append(Post(type: responseItem["type"].stringValue, blogName: responseItem["blog_name"].stringValue, image: image, width: width, height: height, summary: responseItem["summary"].stringValue, tags: tags, notes: responseItem["note_count"].intValue))
                         }
                     }
+                default:
+                    image = "https://img.icons8.com/dotty/80/000000/ios-application-placeholder.png"
+                    self.postsArray.append(Post(type: responseItem["type"].stringValue, blogName: responseItem["blog_name"].stringValue, image: image, width: width, height: height, summary: responseItem["summary"].stringValue, tags: tags, notes: responseItem["note_count"].intValue))
                 }
                 
             }
-//            print(json)
+            //            print(json)
             completion(self.postsArray, nil)
             
             print("count: \(self.postsArray.count)")
-            
-            print(self.postsArray[0].blogName)
-            print(self.postsArray[1].blogName)
-            print(self.postsArray[2].blogName)
-            
-            
-//            print(self.postsArray[0].height)
-//            print(self.postsArray[0].width)
-//            print(self.postsArray[0].image)
-//            print(self.postsArray[0].notes)
-//            print(self.postsArray[0].summary)
-//            print(self.postsArray[0].tags)
-//            print(self.postsArray[0].type)
         }
         
     }

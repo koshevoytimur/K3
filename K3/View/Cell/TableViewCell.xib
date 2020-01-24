@@ -86,13 +86,13 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="Rov-lO-mQq"/>
             <connections>
-                <outlet property="desctiptionLabel" destination="crL-RT-Paf" id="RhA-Io-lCd"/>
+                <outlet property="blogNameLabel" destination="NUY-NA-8bu" id="peh-C9-tEL"/>
                 <outlet property="notesLabel" destination="y5x-Lr-vaR" id="GZc-ng-KKx"/>
                 <outlet property="notesLabelConst" destination="cOz-bN-H1N" id="ecJ-52-tDd"/>
                 <outlet property="postImageView" destination="vcc-oj-hNb" id="OU9-G0-ZRp"/>
                 <outlet property="readButton" destination="QuP-9B-DUV" id="6Hu-Lj-BZ6"/>
+                <outlet property="summaryLabel" destination="crL-RT-Paf" id="RhA-Io-lCd"/>
                 <outlet property="tagsLabel" destination="xAn-mF-NLl" id="MEw-A7-ofO"/>
-                <outlet property="userNameLabel" destination="NUY-NA-8bu" id="peh-C9-tEL"/>
             </connections>
             <point key="canvasLocation" x="131" y="104"/>
         </tableViewCell>

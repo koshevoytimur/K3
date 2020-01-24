@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class TableViewController: UIViewController {
     
@@ -20,6 +21,8 @@ class TableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        getPosts()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -35,12 +38,18 @@ class TableViewController: UIViewController {
     
     func getPosts() {
         self.postsArray.removeAll()
-        net.getPostsFromNetwork(with: "meme") { (posts, err) in
-            self.postsArray = posts!
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.net.getPostsFromNetwork(with: "text") { (posts, err) in
+                
+                DispatchQueue.main.async {
+                    self.postsArray = posts!
+                    self.tableView.reloadData()
+                }
             }
         }
+        
+        
     }
     
     
@@ -60,10 +69,22 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
             cell = nib?[0] as? TableViewCell
         }
         
+        let imageURL = URL(string: postsArray[indexPath.row].image)
         let imageWidth = CGFloat.init(postsArray[indexPath.row].width)
         let imageHight = CGFloat.init(postsArray[indexPath.row].height)
         
-        cell?.userNameLabel.text = postsArray[indexPath.row].blogName
+        cell?.postImageView!.sd_setImage(with: imageURL, completed: { (image, error, cache, url) in
+            if let error = error {
+//                self.alertIssue(error: error)
+                print("error")
+                return
+            }
+        })
+        
+        cell?.summaryLabel.text = postsArray[indexPath.row].summary
+        cell?.blogNameLabel.text = postsArray[indexPath.row].blogName
+        cell?.tagsLabel.text = postsArray[indexPath.row].tags
+        cell?.notesLabel.text = String(postsArray[indexPath.row].notes)
         
         cellHeight = cell?.dynamicHight(screenWidth: tableView.frame.width, imageWidth: imageWidth, imageHight: imageHight)
         
