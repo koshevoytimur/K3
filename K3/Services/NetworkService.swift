@@ -16,11 +16,12 @@ class NetworkService {
 
     let url = URL(string: "https://api.tumblr.com/v2/tagged?tag=meme&api_key=CcEqqSrYdQ5qTHFWssSMof4tPZ89sfx6AXYNQ4eoXHMgPJE03U")
     
-    func getPostsFromNetwork(with tag: String, completion: @escaping (_ response: Post?, _ error: String?) -> Void) {
+    func getPostsFromNetwork(with tag: String, completion: @escaping (_ response: [Post]?, _ error: String?) -> Void) {
         
         AF.request(url!, method: .get ).responseJSON { (responseData) in
             
             guard responseData.response != nil else {
+                print("Error")
                 completion(nil, "Error")
                 return
             }
@@ -36,12 +37,32 @@ class NetworkService {
                 }
                 
                 
-                
-                
+                if responseItem["type"].stringValue == "photo"{
+                    var image: String = ""
+                    var width: Int = 0
+                    var height: Int = 0
+                    
+                    if responseItem["photos"].arrayValue.count > 0 {
+                        for itemPhotos in responseItem["photos"].arrayValue {
+                            image = itemPhotos["original_size"]["url"].stringValue
+                            width = itemPhotos["original_size"]["width"].intValue
+                            height = itemPhotos["original_size"]["height"].intValue
+                        }
+                    }
+                    self.postsArray.append(Post(type: responseItem["type"].stringValue, blogName: responseItem["blog_name"].stringValue, image: image, width: width, height: height, summary: responseItem["summary"].stringValue, tags: tags, notes: responseItem["note_count"].intValue))
+                }
                 
             }
-            print(json)
             
+            completion(self.postsArray, nil)
+            print(self.postsArray[0].blogName)
+            print(self.postsArray[0].height)
+            print(self.postsArray[0].width)
+            print(self.postsArray[0].image)
+            print(self.postsArray[0].notes)
+            print(self.postsArray[0].summary)
+            print(self.postsArray[0].tags)
+            print(self.postsArray[0].type)
         }
         
     }
