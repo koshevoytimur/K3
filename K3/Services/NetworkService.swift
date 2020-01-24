@@ -18,6 +18,8 @@ class NetworkService {
     
     func getPostsFromNetwork(with tag: String, completion: @escaping (_ response: [Post]?, _ error: String?) -> Void) {
         
+        postsArray.removeAll()
+        
         AF.request(url!, method: .get ).responseJSON { (responseData) in
             
             guard responseData.response != nil else {
@@ -47,22 +49,30 @@ class NetworkService {
                             image = itemPhotos["original_size"]["url"].stringValue
                             width = itemPhotos["original_size"]["width"].intValue
                             height = itemPhotos["original_size"]["height"].intValue
+                            
+                            self.postsArray.append(Post(type: responseItem["type"].stringValue, blogName: responseItem["blog_name"].stringValue, image: image, width: width, height: height, summary: responseItem["summary"].stringValue, tags: tags, notes: responseItem["note_count"].intValue))
                         }
                     }
-                    self.postsArray.append(Post(type: responseItem["type"].stringValue, blogName: responseItem["blog_name"].stringValue, image: image, width: width, height: height, summary: responseItem["summary"].stringValue, tags: tags, notes: responseItem["note_count"].intValue))
                 }
                 
             }
-            
+//            print(json)
             completion(self.postsArray, nil)
+            
+            print("count: \(self.postsArray.count)")
+            
             print(self.postsArray[0].blogName)
-            print(self.postsArray[0].height)
-            print(self.postsArray[0].width)
-            print(self.postsArray[0].image)
-            print(self.postsArray[0].notes)
-            print(self.postsArray[0].summary)
-            print(self.postsArray[0].tags)
-            print(self.postsArray[0].type)
+            print(self.postsArray[1].blogName)
+            print(self.postsArray[2].blogName)
+            
+            
+//            print(self.postsArray[0].height)
+//            print(self.postsArray[0].width)
+//            print(self.postsArray[0].image)
+//            print(self.postsArray[0].notes)
+//            print(self.postsArray[0].summary)
+//            print(self.postsArray[0].tags)
+//            print(self.postsArray[0].type)
         }
         
     }

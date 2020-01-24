@@ -24,8 +24,6 @@ class TableViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        getPosts()
-        
         createSearchBar()
         
     }
@@ -36,7 +34,8 @@ class TableViewController: UIViewController {
     }
     
     func getPosts() {
-        net.getPostsFromNetwork(with: "lol") { (posts, err) in
+        self.postsArray.removeAll()
+        net.getPostsFromNetwork(with: "meme") { (posts, err) in
             self.postsArray = posts!
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -61,11 +60,10 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
             cell = nib?[0] as? TableViewCell
         }
         
-        let imageWidth = CGFloat.init(postsArray[indexPath.section].width)
-        let imageHight = CGFloat.init(postsArray[indexPath.section].height)
+        let imageWidth = CGFloat.init(postsArray[indexPath.row].width)
+        let imageHight = CGFloat.init(postsArray[indexPath.row].height)
         
-//        cell?.userNameLabel.text = postsArray[indexPath.section].blogName
-        cell?.userNameLabel.text = "hey"
+        cell?.userNameLabel.text = postsArray[indexPath.row].blogName
         
         cellHeight = cell?.dynamicHight(screenWidth: tableView.frame.width, imageWidth: imageWidth, imageHight: imageHight)
         
