@@ -43,7 +43,7 @@
 		B5F388CF6741BA6CF94E6187 /* Pods-K3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-K3.release.xcconfig"; path = "Target Support Files/Pods-K3/Pods-K3.release.xcconfig"; sourceTree = "<group>"; };
 		D95242C023DC7BA800DB1A53 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		D99E990023DCDBA500D7649B /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
-		D9D8E3AE23DCD03400A661B3 /* PostsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostsPresenter.swift; path = K3/Model/PostsPresenter.swift; sourceTree = SOURCE_ROOT; };
+		D9D8E3AE23DCD03400A661B3 /* PostsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostsPresenter.swift; path = K3/Presenter/PostsPresenter.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,7 @@
 				6BB4294823D8A277008246D2 /* Services */,
 				6BB4294323D89A63008246D2 /* Model */,
 				6BB4294423D89A6E008246D2 /* View */,
-				6BB4294523D89A72008246D2 /* Presenter */,
+				D99E990223DCE5D600D7649B /* Presenter */,
 				6BB4292F23D89300008246D2 /* AppDelegate.swift */,
 				6BB4293123D89300008246D2 /* SceneDelegate.swift */,
 				6BB4293823D89301008246D2 /* Assets.xcassets */,
@@ -110,14 +110,6 @@
 				D99E98FF23DCDB9000D7649B /* Alert */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		6BB4294523D89A72008246D2 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				D9D8E3AE23DCD03400A661B3 /* PostsPresenter.swift */,
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 		6BB4294823D8A277008246D2 /* Services */ = {
@@ -161,6 +153,14 @@
 				D99E990023DCDBA500D7649B /* AlertView.swift */,
 			);
 			path = Alert;
+			sourceTree = "<group>";
+		};
+		D99E990223DCE5D600D7649B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				D9D8E3AE23DCD03400A661B3 /* PostsPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
