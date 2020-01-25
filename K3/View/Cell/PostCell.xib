@@ -59,8 +59,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuP-9B-DUV">
-                        <rect key="frame" x="77" y="0.5" width="50" height="30"/>
+                        <rect key="frame" x="77" y="0.0" width="50" height="30"/>
                         <state key="normal" title="Читать"/>
+                        <connections>
+                            <action selector="buttonTappedAction:" destination="22G-yb-Gp7" eventType="touchUpInside" id="fKx-10-N0j"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

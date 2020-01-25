@@ -16,11 +16,13 @@ class PostsViewController: UIViewController {
     let cellId: String = "postCell"
     var cellHeight: CGFloat?
     
+    let alert = AlertView()
     var postsArray = [Post]()
     let presenter = PostsPresenter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureTableView()
         getPosts("lol")
         createSearchBar()
@@ -30,12 +32,18 @@ class PostsViewController: UIViewController {
         self.postsArray.removeAll()
         presenter.fetchPosts(tag: tag) { (posts, error) in
             if let error = error {
-                print(error)
+                self.showAlert(title: "Error", message: error)
             } else {
                 self.postsArray = posts!
-                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
+    }
+    
+    func showAlert(title: String, message: String) {
+        self.alert.showAlert(view: self, title: title, message: message)
     }
     
 }
@@ -51,16 +59,6 @@ extension PostsViewController: UITableViewDelegate, UITableViewDataSource {
         return self.postsArray.count
     }
     
-    func createPostCell() -> PostCell {
-        var cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as? PostCell
-        
-        if cell == nil {
-            let nib = Bundle.main.loadNibNamed("PostCell", owner: self, options: nil)
-            cell = nib?[0] as? PostCell
-        }
-        return cell!
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = createPostCell()
@@ -73,6 +71,31 @@ extension PostsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight!
+    }
+    
+    func createPostCell() -> PostCell {
+        var cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as? PostCell
+        
+        if cell == nil {
+            let nib = Bundle.main.loadNibNamed("PostCell", owner: self, options: nil)
+            cell = nib?[0] as? PostCell
+        }
+        
+        cell!.buttonTappedAction = { cell in
+            let index = self.tableView.indexPath(for: cell!)?.row
+            self.openImage(index: index!)
+        }
+        
+        return cell!
+    }
+    
+    func openImage(index: Int) {
+        performSegue(withIdentifier: "toImageVC", sender: self)
+        print(index)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
     }
     
 }

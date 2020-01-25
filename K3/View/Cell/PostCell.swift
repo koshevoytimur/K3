@@ -10,7 +10,7 @@ import UIKit
 
 class PostCell: UITableViewCell {
     
-    // MARK: Outlets
+    // MARK: - Outlets
     @IBOutlet weak var blogNameLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var summaryLabel: UILabel!
@@ -18,6 +18,10 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var notesLabel: UILabel!
     @IBOutlet weak var notesLabelConst: UILabel!
     @IBOutlet weak var readButton: UIButton!
+    
+    // MARK: - Properties
+//    var buttonTappedAction : ((UITableViewCell) -> Void)?
+    var buttonTappedAction: ((UITableViewCell?) -> Void)?
     
     // MARK: XIB lyfecycle
     override func awakeFromNib() {
@@ -34,6 +38,7 @@ class PostCell: UITableViewCell {
         super.setSelected(false, animated: animated)
     }
     
+    // MARK: - Functions
     func calculateHeight(post: Post) -> CGFloat{
         
         let screenWidth = self.frame.width
@@ -77,5 +82,11 @@ class PostCell: UITableViewCell {
         }.joined(separator: " ")
         self.notesLabel.text = String(post.notes)
     }
+    
+    // MARK: - Actions
+    @IBAction func buttonTappedAction(_ sender: Any) {
+        buttonTappedAction?(self)
+    }
+    
 }
 

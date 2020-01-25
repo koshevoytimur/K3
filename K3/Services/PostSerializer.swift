@@ -24,27 +24,46 @@ class PostSerializer {
         let width: Int = 100
         let height: Int = 100
         var image: String = ""
+        let placeHolderImage = "https://img.icons8.com/color/96/000000/ios-application-placeholder.png"
         
         if responseItem["type"].stringValue == "photo" {
             if responseItem["photos"].arrayValue.count > 0 {
                 let images = responseItem["photos"].arrayValue.map{ photo in
-                    return Image(url: photo["original_size"]["url"].stringValue, width: photo["original_size"]["width"].intValue, height: photo["original_size"]["height"].intValue)
+                    return Image(url: photo["original_size"]["url"].stringValue,
+                                 width: photo["original_size"]["width"].intValue,
+                                 height: photo["original_size"]["height"].intValue)
                 }
                 
                 
-                return Post(type: responseItem["type"].stringValue, blogName: responseItem["blog_name"].stringValue, images: images, summary: responseItem["summary"].stringValue, tags: tags, notes: responseItem["note_count"].intValue)
+                return Post(type: responseItem["type"].stringValue,
+                            blogName: responseItem["blog_name"].stringValue,
+                            images: images,
+                            summary: responseItem["summary"].stringValue,
+                            tags: tags,
+                            notes: responseItem["note_count"].intValue)
             } else {
-                image = "https://img.icons8.com/dotty/80/000000/ios-application-placeholder.png"
+                let images = [Image(url: placeHolderImage,
+                                    width: width,
+                                    height: height)]
                 
-                let images = [Image(url: image, width: width, height: height)]
-                return Post(type: responseItem["type"].stringValue, blogName: responseItem["blog_name"].stringValue, images: images, summary: responseItem["summary"].stringValue, tags: tags, notes: responseItem["note_count"].intValue)
+                return Post(type: responseItem["type"].stringValue,
+                            blogName: responseItem["blog_name"].stringValue,
+                            images: images,
+                            summary: responseItem["summary"].stringValue,
+                            tags: tags,
+                            notes: responseItem["note_count"].intValue)
             }
         } else {
-            image = "https://img.icons8.com/dotty/80/000000/ios-application-placeholder.png"
+            let images = [Image(url: placeHolderImage,
+                                width: width,
+                                height: height)]
             
-            let images = [Image(url: image, width: width, height: height)]
-            
-            return Post(type: responseItem["type"].stringValue, blogName: responseItem["blog_name"].stringValue, images: images, summary: responseItem["summary"].stringValue, tags: tags, notes: responseItem["note_count"].intValue)
+            return Post(type: responseItem["type"].stringValue,
+                        blogName: responseItem["blog_name"].stringValue,
+                        images: images,
+                        summary: responseItem["summary"].stringValue,
+                        tags: tags,
+                        notes: responseItem["note_count"].intValue)
         }
     }
     

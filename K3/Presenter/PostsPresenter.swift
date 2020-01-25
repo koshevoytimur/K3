@@ -21,8 +21,13 @@ class PostsPresenter {
                 completion(nil, error)
             }
             
-            let posts = self.serializer.serializePostsList(data: postsData!)
-            completion(posts, nil)
+            if let postsData = postsData {
+                let posts = self.serializer.serializePostsList(data: postsData)
+                completion(posts, nil)
+            } else {
+                completion(nil, "Network issue occur!")
+            }
+            
         }
     }
     
