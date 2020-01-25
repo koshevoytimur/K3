@@ -8,63 +8,28 @@
 
 import Foundation
 import Alamofire
-import SwiftyJSON
 
 class NetworkService {
     
-    var postsArray = [Post]()
-    
-    let url = URL(string: "https://api.tumblr.com/v2/tagged?tag=meme&api_key=CcEqqSrYdQ5qTHFWssSMof4tPZ89sfx6AXYNQ4eoXHMgPJE03U")
-    
-    func getPostsFromNetwork(with tag: String, completion: @escaping (_ response: [Post]?, _ error: String?) -> Void) {
+    private func makeURL(tag: String) -> URL{
         
-        postsArray.removeAll()
+        let baseURL = "http://api.tumblr.com/v2/"
+        let apiKey = "CcEqqSrYdQ5qTHFWssSMof4tPZ89sfx6AXYNQ4eoXHMgPJE03U"
+        return URL(string: "\(baseURL)tagged?tag=\(tag)&api_key=\(apiKey)")!
+    }
+    
+    func getPostsFromNetwork(tag: String, completion: @escaping (_ response: Data?, _ error: String?) -> Void) {
         
-        AF.request(url!, method: .get ).responseJSON { (responseData) in
-            
+        AF.request(makeURL(tag: tag), method: .get ).responseJSON { (responseData) in
             guard responseData.response != nil else {
-                print("Error")
-                completion(nil, "Error")
+                print("Fail to load from network")
+                completion(nil, "Fail to load from network")
                 return
             }
+            let data = responseData.data
             
-            let json = JSON(responseData.data)
-            
-            for responseItem in json["response"].arrayValue {
-                var tags: String = ""
-                if responseItem["tags"].arrayValue.count > 0 {
-                    for tagItem in responseItem["tags"].arrayValue {
-                        tags = tags + " #" + tagItem.stringValue
-                    }
-                }
-                var width: Int = 100
-                var height: Int = 100
-                var image: String = ""
-                
-                switch responseItem["type"].stringValue {
-                case "photo":
-                    
-                    if responseItem["photos"].arrayValue.count > 0 {
-                        for itemPhotos in responseItem["photos"].arrayValue {
-                            image = itemPhotos["original_size"]["url"].stringValue
-                            width = itemPhotos["original_size"]["width"].intValue
-                            height = itemPhotos["original_size"]["height"].intValue
-                            
-                            self.postsArray.append(Post(type: responseItem["type"].stringValue, blogName: responseItem["blog_name"].stringValue, image: image, width: width, height: height, summary: responseItem["summary"].stringValue, tags: tags, notes: responseItem["note_count"].intValue))
-                        }
-                    }
-                default:
-                    image = "https://img.icons8.com/dotty/80/000000/ios-application-placeholder.png"
-                    self.postsArray.append(Post(type: responseItem["type"].stringValue, blogName: responseItem["blog_name"].stringValue, image: image, width: width, height: height, summary: responseItem["summary"].stringValue, tags: tags, notes: responseItem["note_count"].intValue))
-                }
-                
-            }
-            //            print(json)
-            completion(self.postsArray, nil)
-            
-            print("count: \(self.postsArray.count)")
+            completion(data, nil)
         }
-        
     }
     
 }
