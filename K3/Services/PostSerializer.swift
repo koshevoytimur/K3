@@ -23,7 +23,6 @@ class PostSerializer {
         
         let width: Int = 100
         let height: Int = 100
-        var image: String = ""
         let placeHolderImage = "https://img.icons8.com/color/96/000000/ios-application-placeholder.png"
         
         if responseItem["type"].stringValue == "photo" {

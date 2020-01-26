@@ -11,8 +11,10 @@ import SDWebImage
 
 class PostsViewController: UIViewController {
     
+    // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
     
+    // MARK: - Properties
     let cellId: String = "postCell"
     var cellHeight: CGFloat?
     
@@ -20,6 +22,7 @@ class PostsViewController: UIViewController {
     var postsArray = [Post]()
     let presenter = PostsPresenter()
     
+    // MARK: - Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,6 +51,7 @@ class PostsViewController: UIViewController {
     
 }
 
+// MARK: - TableView
 extension PostsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func configureTableView() {
@@ -82,24 +86,27 @@ extension PostsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell!.buttonTappedAction = { cell in
-            let index = self.tableView.indexPath(for: cell!)?.row
-            self.openImage(index: index!)
+            self.readButtonTapped(cell: cell!)
         }
         
         return cell!
     }
     
-    func openImage(index: Int) {
-        performSegue(withIdentifier: "toImageVC", sender: self)
-        print(index)
+    func readButtonTapped(cell: UITableViewCell) {
+        let index = self.tableView.indexPath(for: cell)?.row
+        self.openImageOnNextScreen(index: index!)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+    func openImageOnNextScreen(index: Int) {
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ImageViewController") as? ImageViewController
+
+        vc!.post = postsArray[index]
+        navigationController?.pushViewController(vc!, animated: true)
     }
     
 }
 
+// MARK: - SearchBar
 extension PostsViewController: UISearchBarDelegate {
     
     private func createSearchBar() {

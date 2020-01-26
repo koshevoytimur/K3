@@ -20,10 +20,9 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var readButton: UIButton!
     
     // MARK: - Properties
-//    var buttonTappedAction : ((UITableViewCell) -> Void)?
     var buttonTappedAction: ((UITableViewCell?) -> Void)?
     
-    // MARK: XIB lyfecycle
+    // MARK: - XIB lyfecycle
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -74,6 +73,16 @@ class PostCell: UITableViewCell {
                 return
             }
         })
+        
+        var buttonTitle = "Read"
+        if post.images.count > 1 {
+            buttonTitle = buttonTitle + "(+\(post.images.count - 1))"
+            self.readButton.setTitle(buttonTitle, for: .normal)
+            self.readButton.setTitle(buttonTitle, for: .highlighted)
+        } else {
+            self.readButton.setTitle(buttonTitle, for: .normal)
+            self.readButton.setTitle(buttonTitle, for: .highlighted)
+        }
         
         self.summaryLabel.text = post.summary
         self.blogNameLabel.text = post.blogName

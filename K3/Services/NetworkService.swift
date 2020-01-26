@@ -12,8 +12,7 @@ import SystemConfiguration
 
 class NetworkService {
     
-    private func makeURL(tag: String) -> URL{
-        
+    private func makeURL(tag: String) -> URL{    
         let baseURL = "http://api.tumblr.com/v2/"
         let apiKey = "CcEqqSrYdQ5qTHFWssSMof4tPZ89sfx6AXYNQ4eoXHMgPJE03U"
         return URL(string: "\(baseURL)tagged?tag=\(tag)&api_key=\(apiKey)")!
